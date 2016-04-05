@@ -8,6 +8,7 @@ class Task
         @id = @@current_id
         @@current_id += 1
         @complete = false
+        @create_at = Time.now
     end
 
     def complete?
