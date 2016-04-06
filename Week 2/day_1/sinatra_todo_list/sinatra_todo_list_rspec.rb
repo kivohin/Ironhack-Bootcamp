@@ -13,11 +13,13 @@ RSpec.describe "Task class methods" do
 	end
 
 	it "should return false whether the task is not completed" do
-		expect(@task.complete?).to eq(false)
+		@task
+		@task.complete!
+		expect(@task.complete?).to eq(true)
 	end
 
 	it "should return true whether the task is completed" do
-		expect(@task.complete?).to be true
+		expect(@task.complete?).to be true
 	end
 
 	# it "complete status should return false when new task is created" do
