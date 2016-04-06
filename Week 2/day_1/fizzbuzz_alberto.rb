@@ -10,6 +10,5 @@ class FizzBuzz
         when multiple3 then "Fizz"
         when multiple5 then "Buzz"
         else number
-        end
     end
 end
