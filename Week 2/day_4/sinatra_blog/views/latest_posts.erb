@@ -1,0 +1,13 @@
+<h1>I'm the Latest Posts page!</h1>
+
+<% @posts.each_with_index do |post, index| %>
+  <ul>
+  	<h2><a href="/post_details/<%= index %>"><%= post.title %></a></h2>
+  	<li><%= post.date %></li>
+  	<span>**********</span>
+  </ul>	
+<% end %>
+
+<ul>
+	<a href="/new_post">Create New Post</a>
+</ul>
