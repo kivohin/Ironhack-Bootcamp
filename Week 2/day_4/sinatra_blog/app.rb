@@ -39,7 +39,6 @@ post "/check_new_post" do
 
 	post_new = Post.new(title_received, date_created, content_received)
 	blog.add_post(post_new)
-	# @posts = blog.latest_posts
 
 	redirect "/"
 end
