@@ -28,8 +28,11 @@ get "/search_results" do
 	@first_20_results_array = @access_imdb_results.movies[0...20]
 
 	@first_20_results_array.each do |movie|
-		if movie.poster() != nil && @posters_url_ary.length < 9
-			@posters_url_ary << movie.poster()
+		if (@poster = movie.poster()) != nil && @posters_url_ary.length < 9
+			@posters_url_ary << @poster
+
+			# binding.pry
+
 		end 
 	end
 
