@@ -1,0 +1,59 @@
+body {
+	background-color: #F5F5F5;
+	font-family: "Roboto", sans-serif;
+	color: #AAA;
+}
+
+.profile_photo {
+	height: 45px;
+	width: 45px;
+}
+
+.margin_top {
+	margin-top: 20px;
+}
+
+#yellow_font {
+	color: #F3AB4C;
+}
+
+#red_font {
+	color: #F64F5A;
+}
+
+.light_grey_font {
+	color: #AAA
+}
+
+#black_font {
+	color: #333;
+}
+
+.label-default {
+	background-color: white;
+}
+
+.label {
+	border-style: solid;
+	border-width: 1px;
+	border-color: #AAA;
+	margin-left: 5px;
+}
+
+.panel-default .panel-heading {
+	background-color: white;
+}
+
+h4 {
+	display: inline-block;
+}
+
+.btn-primary {
+	color: #2889D8;
+	background-color: white;
+	border-color: #2889D8;
+}
+
+.btn {
+	border-radius: 25px;
+}
