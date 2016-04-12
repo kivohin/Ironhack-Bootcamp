@@ -1,0 +1,56 @@
+body { 
+  background: url(../images/trello_bg.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.navbar {
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.navbar-default .navbar-nav li a {
+	color: white;
+}
+
+.navbar-default .navbar-nav li a:hover {
+	color: white;
+	opacity: .5;
+}
+
+#left_buttons .btn-primary {
+	background-color: transparent;
+	border-color: transparent;
+}
+
+#left_buttons .btn-primary:hover {
+	color: blue;
+	background-color: white;
+	opacity: .5;
+}
+
+.col-sm-3 {
+	/*background-color: green;*/
+	height: 50px;
+}
+
+.col-sm-6 {
+	/*background-color: yellow;*/
+	height: 50px;
+}
+
+.col-sm-9 {
+	/*background-color: purple;*/
+	height: 50px;
+}
+
+.row {
+	/*background-color: blue;*/
+	/*height: 60px;*/
+}
+
+img {
+	margin: auto;
+}
