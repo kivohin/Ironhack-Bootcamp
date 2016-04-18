@@ -6,6 +6,12 @@ Rails.application.routes.draw do
 
   get "/contact", to: "site#contact"
 
+  get "/say_name/:name", to: "site#say_name"
+
+  get "/calculator", to: "site#calculator"
+
+  post "/calculate", to: "site#calculate"
+
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
