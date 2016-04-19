@@ -1,0 +1,21 @@
+<ul>
+	<% @last_10_projects.each do |project| %>
+		<li>
+			<%= project.name %>
+
+			<%= if (project.description?)
+				" - " + project.description
+			end %>
+		</li>
+	<% end %>
+</ul>
+
+<h1>
+	Last Project
+</h1>
+
+<%= @last_project.name %>
+
+<%= if (@last_project.description?)
+	" - " + @last_project.description
+end %>

@@ -1,0 +1,17 @@
+<h1>
+	Welcome dear living being! This is the main page!
+</h1>
+
+<h2>
+	Below the list of all creatures on Pandora
+</h2>
+
+<ul>
+	<% @all_contacts.each do |contact| %>
+		<li>
+			<a href="./contacts/show/<%= contact.id %>"><%= contact.name %></a>
+		</li>
+	<% end %>
+</ul>
+
+<%= link_to "Add contact", new_path %>

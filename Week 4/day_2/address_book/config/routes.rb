@@ -2,17 +2,13 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  get "/", to: "site#home"
+  get "/contacts" => "contacts#index"
 
-  get "/contact", to: "site#contact"
+  get "/contacts/new" => "contacts#new", as: :new 
 
-  get "/say_name/:name", to: "site#say_name"
+  post "/contacts" => "contacts#create"
 
-  get "/calculator", to: "site#calculator"
-
-  post "/calculate", to: "site#calculate"
-
-  get "/projects" => "projects#index"
+  get "/contacts/show/:id" => "contacts#show"
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

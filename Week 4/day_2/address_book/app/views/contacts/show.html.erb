@@ -1,0 +1,21 @@
+<h1>
+	<%= @contact_object.name %>
+</h1>
+
+<ul>
+	<li>
+		Address: <%= @contact_object.address %>
+	</li>
+	
+	<li>
+		Phone number: <%= @contact_object.phone_number %>
+	</li>
+
+	<li>
+		Email: <%= @contact_object.email %>
+	</li>
+</ul>
+
+<div>
+	<%= link_to "Back to main page", contacts_path %>
+</div>
