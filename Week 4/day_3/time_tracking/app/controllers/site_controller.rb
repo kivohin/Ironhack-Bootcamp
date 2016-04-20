@@ -1,26 +1,22 @@
 class SiteController < ApplicationController
-	def home
-		# render "home" 
-	end
 
-	def contact
-		# render "contact"
-	end
+  def home
+  end
 
-	def say_name
-		@name = params[:name]
-		render "say_name"
-	end
+  def contact
+  end
 
-	def calculator
-		render "calculator"
-	end
+  def say_name
+    @name = params[:name]
+  end
 
-	def calculate
-		@num1 = params[:first_num].to_f
-		@num2 = params[:second_num].to_f
-		@result = @num1 + @num2
+  def calculator
+  end
 
-		render "calculate"
-	end
+  def calculate
+    @num1 = params[:first_num].to_f
+    @num2 = params[:second_num].to_f
+    @result = @num1 + @num2
+  end
+
 end

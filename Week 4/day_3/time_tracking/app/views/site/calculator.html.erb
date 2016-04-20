@@ -1,8 +1,6 @@
-<h1>Calculator</h1>
-
 <form action="/calculate" method="POST">
-	<input type="text" name="first_num" placeholder="First Number"></input>
-	<input type="text" name="second_num" placeholder="Second Number"></input>
-	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"></input>
-	<button type="submit">Add</button>
+  <input type="text" name="first_num" placeholder="First Number">
+  <input type="text" name="second_num" placeholder="Second Number">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <button type="submit">Add</button>
 </form>
