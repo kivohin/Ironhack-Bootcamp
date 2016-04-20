@@ -7,10 +7,8 @@ class ProjectsController < ApplicationController
 	end
 
 	def show
-		@my_project = Project.find params[:id]
+		@one_project = Project.find params[:id]
 
-
-
-		render "show"
+		render show
 	end
 end
