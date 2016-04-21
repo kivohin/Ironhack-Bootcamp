@@ -8,8 +8,10 @@
 			<%= entry.date %>
 			<%= entry.comments %>
 			<%= link_to "Edit", :action => :edit, id: entry.id %>
+
+			<%= link_to('Delete', project_time_entry_path(@my_project, entry), method: :delete, data: {confirm: 'Are you sure?'}) %> 
 		</li>
 	<% end %>
 </ul>
 
-<%= link_to "Back to Projects", projects_path %> - <%= link_to "New entry", projects_new_path %>
+<%= link_to "Back to Projects", projects_path %> - <%= link_to "New project", projects_new_path %> - <%= link_to "New time entry", new_time_entry_path %>

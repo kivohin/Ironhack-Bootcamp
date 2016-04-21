@@ -43,6 +43,15 @@ class TimeEntriesController < ApplicationController
 		end
 	end
 
+	def destroy
+		@my_project = Project.find params[:project_id]
+		@my_entry = @my_project.time_entries.find params[:id]
+		@my_entry.destroy
+
+		# flash[:notice] = "Entry deleted!"
+		redirect_to project_entries_path(@my_project)
+	end
+
 	private
 	def entry_params
 		params.require(:time_entry).permit(:hours, :minutes, :comments, :date)

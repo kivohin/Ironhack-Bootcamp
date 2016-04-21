@@ -25,13 +25,15 @@ Rails.application.routes.draw do
   # ----Time Entries Controller----
   get "/projects/:project_id/time_entries" => "time_entries#index", as: :project_entries
 
-  get "/projects/:project_id/time_entries/new" => "time_entries#new"
+  get "/projects/:project_id/time_entries/new" => "time_entries#new", as: :new_time_entry
 
   post "/projects/:project_id/time_entries" => "time_entries#create", as: :project_time_entries
 
   get "/projects/:project_id/time_entries/:id/edit" => "time_entries#edit"
 
   patch "/projects/:project_id/time_entries/:id" => "time_entries#update", as: :project_time_entry
+
+  delete "/projects/:project_id/time_entries/:id" => "time_entries#destroy"
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
