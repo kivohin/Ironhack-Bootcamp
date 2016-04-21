@@ -9,8 +9,6 @@ class ProjectsController < ApplicationController
 	def show
 		@my_project = Project.find params[:id]
 
-
-
 		render "show"
 	end
 end

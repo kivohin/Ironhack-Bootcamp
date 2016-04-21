@@ -1,0 +1,16 @@
+<%= form_for [@my_project, @my_entry] do |f| %>
+  <%= f.label :hours %>
+  <%= f.text_field :hours %>
+  <br>
+  <%= f.label :minutes %>
+  <%= f.text_field :minutes %>
+  <br>
+  <%= f.label :comments %>
+  <%= f.text_field :comments %>
+  <br>
+  <%= f.label :date %>
+  <%= f.date_field :date %>
+  <br>
+
+  <%= f.submit "Save" %>
+<% end %>
