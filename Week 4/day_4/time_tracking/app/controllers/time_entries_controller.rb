@@ -16,11 +16,7 @@ class TimeEntriesController < ApplicationController
 	def create
 		@my_project = Project.find params[:project_id]
 
-		@my_entry = @my_project.time_entries.new(
-		:hours => params[:time_entry][:hours],
-		:minutes => params[:time_entry][:minutes],
-		:comments => params[:time_entry][:comments],
-		:date => params[:time_entry][:date])
+		@my_entry = @my_project.time_entries.new(entry_params)
 
 		if @my_project.save
 			redirect_to action: "index", controller: "time_entries", project_id: @my_project.id
@@ -29,4 +25,27 @@ class TimeEntriesController < ApplicationController
 			render "new"
 		end	
 	end
+
+	def edit
+		@my_project = Project.find params[:project_id]
+		@my_entry = @my_project.time_entries.find(params[:id])
+	end
+
+	def update
+		@my_project = Project.find params[:project_id]
+		@my_entry = @my_project.time_entries.find(params[:id])
+
+		if @my_entry.update_attributes(entry_params)
+			redirect_to project_entries_path
+
+		else
+			render "edit"
+		end
+	end
+
+	private
+	def entry_params
+		params.require(:time_entry).permit(:hours, :minutes, :comments, :date)
+	end
 end
+

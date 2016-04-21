@@ -5,7 +5,9 @@
 		<li>
 			<%= entry.hours %> h
 			<%= entry.minutes %> m -
+			<%= entry.date %>
 			<%= entry.comments %>
+			<%= link_to "Edit", :action => :edit, id: entry.id %>
 		</li>
 	<% end %>
 </ul>

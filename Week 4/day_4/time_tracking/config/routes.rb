@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # ----Site Controller----
-  get '/', to: 'site#home'
+  get '/' => 'site#home'
 
-  get '/contact', to: 'site#contact'
+  get '/contact' => 'site#contact'
 
   get '/say_name/:name' => 'site#say_name'
 
@@ -23,11 +23,15 @@ Rails.application.routes.draw do
   get '/projects/:project_id' => 'projects#show'
 
   # ----Time Entries Controller----
-  get "/projects/:project_id/time_entries" => "time_entries#index"
+  get "/projects/:project_id/time_entries" => "time_entries#index", as: :project_entries
 
   get "/projects/:project_id/time_entries/new" => "time_entries#new"
 
   post "/projects/:project_id/time_entries" => "time_entries#create", as: :project_time_entries
+
+  get "/projects/:project_id/time_entries/:id/edit" => "time_entries#edit"
+
+  patch "/projects/:project_id/time_entries/:id" => "time_entries#update", as: :project_time_entry
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
