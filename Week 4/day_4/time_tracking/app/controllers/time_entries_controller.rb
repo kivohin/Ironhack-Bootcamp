@@ -48,7 +48,7 @@ class TimeEntriesController < ApplicationController
 		@my_entry = @my_project.time_entries.find params[:id]
 		@my_entry.destroy
 
-		# flash[:notice] = "Entry deleted!"
+		flash[:notice] = "Entry deleted!"
 		redirect_to project_entries_path(@my_project)
 	end
 

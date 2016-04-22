@@ -1,5 +1,11 @@
 <h1><%= @my_project.name %></h1>
 
+<h2><%= @my_project.description %></h2>
+
+<% if flash[:notice] %>
+	<em><%= flash[:notice] %></em>
+<% end %>
+
 <ul>
 	<% @my_entries.each do |entry| %>
 		<li>

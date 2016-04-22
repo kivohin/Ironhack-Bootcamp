@@ -2,38 +2,42 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  # ----Site Controller----
-  get '/' => 'site#home'
+  resources :projects do
+    resources :time_entries
+  end
 
-  get '/contact' => 'site#contact'
+  # # ----Site Controller----
+  # get '/' => 'site#home'
 
-  get '/say_name/:name' => 'site#say_name'
+  # get '/contact' => 'site#contact'
 
-  get '/calculator' => 'site#calculator'
+  # get '/say_name/:name' => 'site#say_name'
 
-  post '/calculate' => 'site#calculate'
+  # get '/calculator' => 'site#calculator'
 
-  # ----Projects Controller----
-  get '/projects' => 'projects#index'
+  # post '/calculate' => 'site#calculate'
 
-  post "/projects" => "projects#create"
+  # # ----Projects Controller----
+  # get '/projects' => 'projects#index'
 
-  get "/projects/new" => "projects#new"
+  # post "/projects" => "projects#create"
 
-  get '/projects/:project_id' => 'projects#show'
+  # get "/projects/new" => "projects#new"
 
-  # ----Time Entries Controller----
-  get "/projects/:project_id/time_entries" => "time_entries#index", as: :project_entries
+  # get '/projects/:project_id' => 'projects#show'
 
-  get "/projects/:project_id/time_entries/new" => "time_entries#new", as: :new_time_entry
+  # # ----Time Entries Controller----
+  # get "/projects/:project_id/time_entries" => "time_entries#index", as: :project_entries
 
-  post "/projects/:project_id/time_entries" => "time_entries#create", as: :project_time_entries
+  # get "/projects/:project_id/time_entries/new" => "time_entries#new", as: :new_time_entry
 
-  get "/projects/:project_id/time_entries/:id/edit" => "time_entries#edit"
+  # post "/projects/:project_id/time_entries" => "time_entries#create", as: :project_time_entries
 
-  patch "/projects/:project_id/time_entries/:id" => "time_entries#update", as: :project_time_entry
+  # get "/projects/:project_id/time_entries/:id/edit" => "time_entries#edit"
 
-  delete "/projects/:project_id/time_entries/:id" => "time_entries#destroy"
+  # patch "/projects/:project_id/time_entries/:id" => "time_entries#update", as: :project_time_entry
+
+  # delete "/projects/:project_id/time_entries/:id" => "time_entries#destroy"
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
