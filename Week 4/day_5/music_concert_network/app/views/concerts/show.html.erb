@@ -1,0 +1,27 @@
+<h2>Concert details from <%= @concert_object.artist %></h2>
+
+<ul>
+	<li>
+		Venue: <%= @concert_object.venue %>
+	</li>
+
+	<li>
+		City: <%= @concert_object.city %>
+	</li>
+
+	<li>
+		Date: <%= @concert_object.date %>
+	</li>
+
+	<li>
+		Price: <%= @concert_object.price %>
+	</li>
+
+	<li>
+		Description: <%= @concert_object.description %>
+	</li>
+</ul>
+
+<div>
+	<%= link_to 'Back to All Concerts', index_path %>
+</div>
