@@ -1,0 +1,8 @@
+<h1>All Concerts</h1>
+
+<ul>
+	<% @all_concerts.each do |concert| %>
+		<li><%= concert.artist %></li>
+		<li><%= concert.date %></li>
+	<% end %>
+</ul>
