@@ -1,0 +1,18 @@
+.container {
+  background-color: #eee;
+  height: 500px;
+  width: 500px;
+}
+
+.cell {
+  border: 1px solid white;
+  box-sizing: border-box;
+  float: left;
+  height:  10%;
+  width: 10%;
+  background-color: lightblue;
+}
+
+.active {
+  background-color: orange;
+}
