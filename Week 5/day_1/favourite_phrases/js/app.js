@@ -11,4 +11,8 @@ $(document).on('ready', function() {
 		randomNum = Math.floor(Math.random() * 5);
 		$('p').text(phrases[randomNum]);
 	})
+
+	var newPhrase = document.getElementById('form_1').value;
+
+	phrases.push(newPhrase);
 });
