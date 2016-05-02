@@ -8,4 +8,16 @@ class TournamentsController < ApplicationController
 
   	render json: all_tournaments
   end
+
+  def create
+  	new_tournament = Tournament.create(tournament_params)
+
+  	render json: new_tournament
+  end
+
+  private
+
+  def tournament_params
+  	params.require(:tournament).permit(:name)
+  end
 end
