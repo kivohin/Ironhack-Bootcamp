@@ -1,3 +1,5 @@
+require 'pry'
+
 class IngredientsController < ApplicationController
 	def create
 		ingredient = Ingredient.new(
@@ -16,7 +18,9 @@ class IngredientsController < ApplicationController
 	end
 
 	def show
-		ingredient = Ingredient.find_by(params[:id])
+		id = params[:id].to_i
+		# binding.pry
+		ingredient = Ingredient.find_by(id: id)
 
 		render json: ingredient
 	end
