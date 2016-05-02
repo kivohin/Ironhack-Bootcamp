@@ -7,12 +7,21 @@ $(document).on('ready', function() {
 	'I\'m gonna leave this world in a better place.'
 	];
 
+	var randomNum = Math.floor(Math.random() * phrases.length);
+	$('p').text(phrases[randomNum]);
+
 	$('button').on('click', function newPhrase() {
-		randomNum = Math.floor(Math.random() * 5);
+		var randomNum = Math.floor(Math.random() * phrases.length);
 		$('p').text(phrases[randomNum]);
 	})
 
-	var newPhrase = document.getElementById('form_1').value;
-
-	phrases.push(newPhrase);
+	$('input').submit();
+	$('input').val();
+	debugger
 });
+
+
+	// var newPhrase = document.getElementById('form_1').name;
+
+	// phrases.push(newPhrase);
+	// debugger

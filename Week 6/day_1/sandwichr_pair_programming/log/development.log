@@ -1,0 +1,98 @@
+  [1m[36m (1.1ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateSandwiches (20160208151610)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "sandwiches" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "bread_type" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160208151610"]]
+  [1m[35m (0.8ms)[0m  commit transaction
+Migrating to CreateIngredients (20160208160157)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "ingredients" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "calories" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160208160157"]]
+  [1m[35m (0.8ms)[0m  commit transaction
+Migrating to CreateSandwichIngredients (20160502132037)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "sandwich_ingredients" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "sandwich_id" integer, "ingredient_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160502132037"]]
+  [1m[35m (0.8ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches"  ORDER BY "sandwiches"."id" ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Falafel"], ["bread_type", "Pita"], ["created_at", "2016-05-02 13:52:04.464755"], ["updated_at", "2016-05-02 13:52:04.464755"]]
+  [1m[35m (0.7ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Choky"], ["bread_type", "Integral"], ["created_at", "2016-05-02 13:52:04.470356"], ["updated_at", "2016-05-02 13:52:04.470356"]]
+  [1m[36m (0.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "ingredients" ("name", "calories", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Mierda"], ["calories", 500], ["created_at", "2016-05-02 13:52:04.487204"], ["updated_at", "2016-05-02 13:52:04.487204"]]
+  [1m[35m (0.7ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "ingredients" ("name", "calories", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Nutella"], ["calories", 900], ["created_at", "2016-05-02 13:52:04.490067"], ["updated_at", "2016-05-02 13:52:04.490067"]]
+  [1m[36m (0.7ms)[0m  [1mcommit transaction[0m
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches"  ORDER BY "sandwiches"."id" ASC LIMIT 1[0m
+  [1m[35mIngredient Load (0.1ms)[0m  SELECT  "ingredients".* FROM "ingredients"  ORDER BY "ingredients"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "sandwich_ingredients" ("sandwich_id", "ingredient_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["sandwich_id", 1], ["ingredient_id", 1], ["created_at", "2016-05-02 13:56:52.342605"], ["updated_at", "2016-05-02 13:56:52.342605"]]
+  [1m[36m (0.7ms)[0m  [1mcommit transaction[0m
+  [1m[35mIngredient Load (0.3ms)[0m  SELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?  [["sandwich_id", 1]]
+  [1m[36mIngredient Load (0.3ms)[0m  [1mSELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?[0m  [["sandwich_id", 1]]
+
+
+Started GET "/sandwiches/?:id=1" for ::1 at 2016-05-02 16:30:25 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by SandwichesController#index as */*
+  Parameters: {":id"=>"1"}
+  [1m[35mSandwich Load (0.2ms)[0m  SELECT "sandwiches".* FROM "sandwiches"
+Completed 200 OK in 16ms (Views: 6.8ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/sandwiches/?[:id]=1" for ::1 at 2016-05-02 16:30:55 +0200
+Processing by SandwichesController#index as */*
+  Parameters: {":id"=>"1"}
+  [1m[36mSandwich Load (0.2ms)[0m  [1mSELECT "sandwiches".* FROM "sandwiches"[0m
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/sandwiches/?[id]=1" for ::1 at 2016-05-02 16:31:03 +0200
+Processing by SandwichesController#index as */*
+  Parameters: {"id"=>"1"}
+  [1m[35mSandwich Load (0.2ms)[0m  SELECT "sandwiches".* FROM "sandwiches"
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/sandwiches/1" for ::1 at 2016-05-02 16:31:27 +0200
+Processing by SandwichesController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mSandwich Load (0.3ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mIngredient Load (0.3ms)[0m  SELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?  [["sandwich_id", 1]]
+Completed 200 OK in 67ms (Views: 0.1ms | ActiveRecord: 0.9ms)
+
+
+Started POST "/sandwiches/1/ingredients/add/2" for ::1 at 2016-05-02 17:35:35 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by SandwichesController#add_ingredient as */*
+  Parameters: {"id"=>"2"}
+Can't verify CSRF token authenticity
+  [1m[35mSandwich Load (0.2ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mIngredient Load (0.2ms)[0m  [1mSELECT  "ingredients".* FROM "ingredients" WHERE "ingredients"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "sandwich_ingredients" ("sandwich_id", "ingredient_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["sandwich_id", 2], ["ingredient_id", 2], ["created_at", "2016-05-02 15:35:35.970350"], ["updated_at", "2016-05-02 15:35:35.970350"]]
+  [1m[35m (0.6ms)[0m  commit transaction
+  [1m[36mIngredient Load (0.2ms)[0m  [1mSELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?[0m  [["sandwich_id", 2]]
+Completed 200 OK in 82ms (Views: 0.1ms | ActiveRecord: 2.8ms)
+
+
+Started POST "/sandwiches/1/ingredients/add/2" for ::1 at 2016-05-02 17:37:56 +0200
+Processing by SandwichesController#add_ingredient as */*
+  Parameters: {"id"=>"1", "id_ingredient"=>"2"}
+Can't verify CSRF token authenticity
+  [1m[35mSandwich Load (0.1ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mIngredient Load (0.1ms)[0m  [1mSELECT  "ingredients".* FROM "ingredients" WHERE "ingredients"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "sandwich_ingredients" ("sandwich_id", "ingredient_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["sandwich_id", 1], ["ingredient_id", 2], ["created_at", "2016-05-02 15:37:56.302719"], ["updated_at", "2016-05-02 15:37:56.302719"]]
+  [1m[35m (1.0ms)[0m  commit transaction
+  [1m[36mIngredient Load (0.2ms)[0m  [1mSELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?[0m  [["sandwich_id", 1]]
+Completed 200 OK in 29ms (Views: 0.1ms | ActiveRecord: 2.6ms)
