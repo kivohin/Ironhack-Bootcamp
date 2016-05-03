@@ -1,0 +1,1453 @@
+  [1m[36m (1.1ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateSandwiches (20160208151610)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "sandwiches" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "bread_type" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160208151610"]]
+  [1m[35m (0.8ms)[0m  commit transaction
+Migrating to CreateIngredients (20160208160157)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "ingredients" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "calories" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160208160157"]]
+  [1m[35m (0.8ms)[0m  commit transaction
+Migrating to CreateSandwichIngredients (20160502132037)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "sandwich_ingredients" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "sandwich_id" integer, "ingredient_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160502132037"]]
+  [1m[35m (0.8ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches"  ORDER BY "sandwiches"."id" ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Falafel"], ["bread_type", "Pita"], ["created_at", "2016-05-02 13:52:04.464755"], ["updated_at", "2016-05-02 13:52:04.464755"]]
+  [1m[35m (0.7ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Choky"], ["bread_type", "Integral"], ["created_at", "2016-05-02 13:52:04.470356"], ["updated_at", "2016-05-02 13:52:04.470356"]]
+  [1m[36m (0.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "ingredients" ("name", "calories", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Mierda"], ["calories", 500], ["created_at", "2016-05-02 13:52:04.487204"], ["updated_at", "2016-05-02 13:52:04.487204"]]
+  [1m[35m (0.7ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "ingredients" ("name", "calories", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Nutella"], ["calories", 900], ["created_at", "2016-05-02 13:52:04.490067"], ["updated_at", "2016-05-02 13:52:04.490067"]]
+  [1m[36m (0.7ms)[0m  [1mcommit transaction[0m
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches"  ORDER BY "sandwiches"."id" ASC LIMIT 1[0m
+  [1m[35mIngredient Load (0.1ms)[0m  SELECT  "ingredients".* FROM "ingredients"  ORDER BY "ingredients"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "sandwich_ingredients" ("sandwich_id", "ingredient_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["sandwich_id", 1], ["ingredient_id", 1], ["created_at", "2016-05-02 13:56:52.342605"], ["updated_at", "2016-05-02 13:56:52.342605"]]
+  [1m[36m (0.7ms)[0m  [1mcommit transaction[0m
+  [1m[35mIngredient Load (0.3ms)[0m  SELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?  [["sandwich_id", 1]]
+  [1m[36mIngredient Load (0.3ms)[0m  [1mSELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?[0m  [["sandwich_id", 1]]
+
+
+Started GET "/sandwiches/?:id=1" for ::1 at 2016-05-02 16:30:25 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by SandwichesController#index as */*
+  Parameters: {":id"=>"1"}
+  [1m[35mSandwich Load (0.2ms)[0m  SELECT "sandwiches".* FROM "sandwiches"
+Completed 200 OK in 16ms (Views: 6.8ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/sandwiches/?[:id]=1" for ::1 at 2016-05-02 16:30:55 +0200
+Processing by SandwichesController#index as */*
+  Parameters: {":id"=>"1"}
+  [1m[36mSandwich Load (0.2ms)[0m  [1mSELECT "sandwiches".* FROM "sandwiches"[0m
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/sandwiches/?[id]=1" for ::1 at 2016-05-02 16:31:03 +0200
+Processing by SandwichesController#index as */*
+  Parameters: {"id"=>"1"}
+  [1m[35mSandwich Load (0.2ms)[0m  SELECT "sandwiches".* FROM "sandwiches"
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/sandwiches/1" for ::1 at 2016-05-02 16:31:27 +0200
+Processing by SandwichesController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mSandwich Load (0.3ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mIngredient Load (0.3ms)[0m  SELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?  [["sandwich_id", 1]]
+Completed 200 OK in 67ms (Views: 0.1ms | ActiveRecord: 0.9ms)
+
+
+Started POST "/sandwiches/1/ingredients/add/2" for ::1 at 2016-05-02 17:35:35 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by SandwichesController#add_ingredient as */*
+  Parameters: {"id"=>"2"}
+Can't verify CSRF token authenticity
+  [1m[35mSandwich Load (0.2ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mIngredient Load (0.2ms)[0m  [1mSELECT  "ingredients".* FROM "ingredients" WHERE "ingredients"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "sandwich_ingredients" ("sandwich_id", "ingredient_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["sandwich_id", 2], ["ingredient_id", 2], ["created_at", "2016-05-02 15:35:35.970350"], ["updated_at", "2016-05-02 15:35:35.970350"]]
+  [1m[35m (0.6ms)[0m  commit transaction
+  [1m[36mIngredient Load (0.2ms)[0m  [1mSELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?[0m  [["sandwich_id", 2]]
+Completed 200 OK in 82ms (Views: 0.1ms | ActiveRecord: 2.8ms)
+
+
+Started POST "/sandwiches/1/ingredients/add/2" for ::1 at 2016-05-02 17:37:56 +0200
+Processing by SandwichesController#add_ingredient as */*
+  Parameters: {"id"=>"1", "id_ingredient"=>"2"}
+Can't verify CSRF token authenticity
+  [1m[35mSandwich Load (0.1ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mIngredient Load (0.1ms)[0m  [1mSELECT  "ingredients".* FROM "ingredients" WHERE "ingredients"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "sandwich_ingredients" ("sandwich_id", "ingredient_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["sandwich_id", 1], ["ingredient_id", 2], ["created_at", "2016-05-02 15:37:56.302719"], ["updated_at", "2016-05-02 15:37:56.302719"]]
+  [1m[35m (1.0ms)[0m  commit transaction
+  [1m[36mIngredient Load (0.2ms)[0m  [1mSELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?[0m  [["sandwich_id", 1]]
+Completed 200 OK in 29ms (Views: 0.1ms | ActiveRecord: 2.6ms)
+
+
+Started GET "/" for ::1 at 2016-05-03 15:38:15 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/railties-4.2.5/lib/rails/templates/rails/welcome/index.html.erb (2.5ms)
+Completed 200 OK in 12ms (Views: 12.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/sandwiches" for ::1 at 2016-05-03 15:40:42 +0200
+Processing by SandwichViewsController#index as HTML
+  [1m[35mSandwich Load (0.2ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" LIMIT 100
+  Rendered sandwich_views/index.html.erb within layouts/application (4.9ms)
+Completed 200 OK in 569ms (Views: 563.4ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/assets/ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:40:43 +0200
+
+
+Started GET "/assets/sandwich_views.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:40:43 +0200
+
+
+Started GET "/assets/sandwich_views.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:40:43 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:40:43 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:40:43 +0200
+
+
+Started GET "/assets/ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:40:43 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:40:43 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-05-03 15:40:43 +0200
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-05-03 15:40:43 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Falafel"], ["bread_type", "Pita"], ["created_at", "2016-05-03 13:43:53.178469"], ["updated_at", "2016-05-03 13:43:53.178469"]]
+  [1m[35m (0.7ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Choky"], ["bread_type", "Integral"], ["created_at", "2016-05-03 13:43:53.183423"], ["updated_at", "2016-05-03 13:43:53.183423"]]
+  [1m[36m (0.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Jelly Jelly"], ["bread_type", "White"], ["created_at", "2016-05-03 13:43:53.185505"], ["updated_at", "2016-05-03 13:43:53.185505"]]
+  [1m[35m (0.6ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Wacky & Spicy"], ["bread_type", "Cereal"], ["created_at", "2016-05-03 13:43:53.187471"], ["updated_at", "2016-05-03 13:43:53.187471"]]
+  [1m[36m (0.6ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Meat Lover"], ["bread_type", "Mixed Meat"], ["created_at", "2016-05-03 13:43:53.189350"], ["updated_at", "2016-05-03 13:43:53.189350"]]
+  [1m[35m (0.6ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "ingredients" ("name", "calories", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Mierda"], ["calories", 500], ["created_at", "2016-05-03 13:43:53.198080"], ["updated_at", "2016-05-03 13:43:53.198080"]]
+  [1m[36m (1.0ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "ingredients" ("name", "calories", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Nutella"], ["calories", 900], ["created_at", "2016-05-03 13:43:53.201564"], ["updated_at", "2016-05-03 13:43:53.201564"]]
+  [1m[35m (0.7ms)[0m  commit transaction
+
+
+Started GET "/sandwiches" for ::1 at 2016-05-03 15:43:57 +0200
+Processing by SandwichViewsController#index as HTML
+  [1m[36mSandwich Load (0.2ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" LIMIT 100[0m
+  Rendered sandwich_views/index.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 29ms (Views: 28.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/sandwich_ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:43:57 +0200
+
+
+Started GET "/assets/ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:43:57 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2016-05-03 15:43:57 +0200
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-05-03 15:43:57 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:43:57 +0200
+
+
+Started GET "/assets/sandwich_views.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:43:57 +0200
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-05-03 15:43:57 +0200
+
+
+Started GET "/assets/ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:43:57 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:43:57 +0200
+
+
+Started GET "/assets/sandwich_views.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:43:57 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-05-03 15:43:57 +0200
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-05-03 15:43:57 +0200
+  [1m[36m (1.1ms)[0m  [1mCREATE TABLE "ingredients" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "calories" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (1.1ms)[0m  CREATE TABLE "sandwich_ingredients" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "sandwich_id" integer, "ingredient_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (1.0ms)[0m  [1mCREATE TABLE "sandwiches" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "bread_type" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.9ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.8ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (0.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160502132037')
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160208151610')[0m
+  [1m[35m (0.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160208160157')
+  [1m[36m (0.9ms)[0m  [1mDROP TABLE "ingredients"[0m
+  [1m[35m (2.2ms)[0m  CREATE TABLE "ingredients" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "calories" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (1.0ms)[0m  [1mDROP TABLE "sandwich_ingredients"[0m
+  [1m[35m (0.9ms)[0m  CREATE TABLE "sandwich_ingredients" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "sandwich_id" integer, "ingredient_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (1.2ms)[0m  [1mDROP TABLE "sandwiches"[0m
+  [1m[35m (1.3ms)[0m  CREATE TABLE "sandwiches" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "bread_type" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Falafel"], ["bread_type", "Pita"], ["created_at", "2016-05-03 13:44:18.545425"], ["updated_at", "2016-05-03 13:44:18.545425"]]
+  [1m[36m (0.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Choky"], ["bread_type", "Integral"], ["created_at", "2016-05-03 13:44:18.550786"], ["updated_at", "2016-05-03 13:44:18.550786"]]
+  [1m[35m (0.8ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Jelly Jelly"], ["bread_type", "White"], ["created_at", "2016-05-03 13:44:18.555099"], ["updated_at", "2016-05-03 13:44:18.555099"]]
+  [1m[36m (0.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Wacky & Spicy"], ["bread_type", "Cereal"], ["created_at", "2016-05-03 13:44:18.557351"], ["updated_at", "2016-05-03 13:44:18.557351"]]
+  [1m[35m (0.7ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Meat Lover"], ["bread_type", "Mixed Meat"], ["created_at", "2016-05-03 13:44:18.559537"], ["updated_at", "2016-05-03 13:44:18.559537"]]
+  [1m[36m (0.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "ingredients" ("name", "calories", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Mierda"], ["calories", 500], ["created_at", "2016-05-03 13:44:18.568353"], ["updated_at", "2016-05-03 13:44:18.568353"]]
+  [1m[35m (1.1ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "ingredients" ("name", "calories", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Nutella"], ["calories", 900], ["created_at", "2016-05-03 13:44:18.572609"], ["updated_at", "2016-05-03 13:44:18.572609"]]
+  [1m[36m (0.7ms)[0m  [1mcommit transaction[0m
+
+
+Started GET "/sandwiches" for ::1 at 2016-05-03 15:44:21 +0200
+Processing by SandwichViewsController#index as HTML
+  [1m[35mSandwich Load (0.1ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" LIMIT 100
+  Rendered sandwich_views/index.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 28ms (Views: 27.5ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/assets/ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:44:21 +0200
+
+
+Started GET "/assets/sandwich_views.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:44:21 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:44:21 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:44:21 +0200
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-05-03 15:44:21 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2016-05-03 15:44:21 +0200
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-05-03 15:44:21 +0200
+
+
+Started GET "/assets/ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:44:21 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:44:21 +0200
+
+
+Started GET "/assets/sandwich_views.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:44:21 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-05-03 15:44:21 +0200
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-05-03 15:44:21 +0200
+
+
+Started GET "/sandwiches" for ::1 at 2016-05-03 15:44:24 +0200
+Processing by SandwichViewsController#index as HTML
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" LIMIT 100[0m
+  Rendered sandwich_views/index.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 26ms (Views: 25.2ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/assets/ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:44:24 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:44:24 +0200
+
+
+Started GET "/assets/sandwich_views.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:44:24 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:44:24 +0200
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-05-03 15:44:24 +0200
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-05-03 15:44:24 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2016-05-03 15:44:24 +0200
+
+
+Started GET "/assets/ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:44:24 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:44:24 +0200
+
+
+Started GET "/assets/sandwich_views.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:44:24 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-05-03 15:44:24 +0200
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-05-03 15:44:24 +0200
+
+
+Started GET "/sandwiches" for ::1 at 2016-05-03 15:44:25 +0200
+Processing by SandwichViewsController#index as HTML
+  [1m[35mSandwich Load (0.3ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" LIMIT 100
+  Rendered sandwich_views/index.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 45ms (Views: 44.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:44:25 +0200
+
+
+Started GET "/assets/sandwich_views.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:44:25 +0200
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-05-03 15:44:25 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:44:25 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2016-05-03 15:44:25 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:44:25 +0200
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-05-03 15:44:25 +0200
+
+
+Started GET "/assets/ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:44:25 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:44:25 +0200
+
+
+Started GET "/assets/sandwich_views.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:44:25 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-05-03 15:44:25 +0200
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-05-03 15:44:25 +0200
+
+
+Started GET "/sandwiches" for ::1 at 2016-05-03 15:44:36 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by SandwichViewsController#index as HTML
+  [1m[35mSandwich Load (0.3ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" LIMIT 100
+  Rendered sandwich_views/index.html.erb within layouts/application (8.7ms)
+Completed 200 OK in 255ms (Views: 249.0ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:44:37 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:44:37 +0200
+
+
+Started GET "/assets/sandwich_views.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:44:37 +0200
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-05-03 15:44:37 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:44:37 +0200
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-05-03 15:44:37 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:44:37 +0200
+
+
+Started GET "/assets/ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:44:37 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2016-05-03 15:44:37 +0200
+
+
+Started GET "/assets/sandwich_views.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:44:37 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-05-03 15:44:37 +0200
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-05-03 15:44:37 +0200
+
+
+Started GET "/sandwiches" for ::1 at 2016-05-03 15:44:59 +0200
+Processing by SandwichViewsController#index as HTML
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" LIMIT 100[0m
+  Rendered sandwich_views/index.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 39ms (Views: 38.3ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/assets/ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:45:00 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:45:00 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:45:00 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2016-05-03 15:45:00 +0200
+
+
+Started GET "/assets/sandwich_views.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:45:00 +0200
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-05-03 15:45:00 +0200
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-05-03 15:45:00 +0200
+
+
+Started GET "/assets/ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:45:00 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:45:00 +0200
+
+
+Started GET "/assets/sandwich_views.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:45:00 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-05-03 15:45:00 +0200
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-05-03 15:45:00 +0200
+
+
+Started GET "/sandwiches" for ::1 at 2016-05-03 15:45:31 +0200
+Processing by SandwichViewsController#index as HTML
+  [1m[35mSandwich Load (0.1ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" LIMIT 100
+  Rendered sandwich_views/index.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 22ms (Views: 21.8ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/assets/sandwich_ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:45:31 +0200
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-05-03 15:45:31 +0200
+
+
+Started GET "/assets/ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:45:31 +0200
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-05-03 15:45:31 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:45:31 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2016-05-03 15:45:31 +0200
+
+
+Started GET "/assets/sandwich_views.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:45:31 +0200
+
+
+Started GET "/assets/ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:45:31 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:45:31 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-05-03 15:45:31 +0200
+
+
+Started GET "/assets/sandwich_views.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:45:31 +0200
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-05-03 15:45:31 +0200
+
+
+Started GET "/sandwiches" for ::1 at 2016-05-03 15:51:21 +0200
+Processing by SandwichViewsController#index as HTML
+  [1m[36mSandwich Load (0.3ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" LIMIT 100[0m
+  Rendered sandwich_views/index.html.erb within layouts/application (3.7ms)
+Completed 200 OK in 32ms (Views: 28.9ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:51:21 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:51:21 +0200
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-05-03 15:51:21 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:51:21 +0200
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-05-03 15:51:21 +0200
+
+
+Started GET "/assets/sandwich_views.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:51:21 +0200
+
+
+Started GET "/assets/ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:51:21 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2016-05-03 15:51:21 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:51:21 +0200
+
+
+Started GET "/assets/sandwich_views.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:51:21 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-05-03 15:51:21 +0200
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-05-03 15:51:21 +0200
+
+
+Started GET "/sandwiches" for ::1 at 2016-05-03 15:51:22 +0200
+Processing by SandwichViewsController#index as HTML
+  [1m[35mSandwich Load (0.2ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" LIMIT 100
+  Rendered sandwich_views/index.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 27ms (Views: 26.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/sandwich_ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:51:22 +0200
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-05-03 15:51:22 +0200
+
+
+Started GET "/assets/sandwich_views.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:51:22 +0200
+
+
+Started GET "/assets/ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:51:22 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:51:22 +0200
+
+
+Started GET "/assets/ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:51:22 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2016-05-03 15:51:22 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:51:22 +0200
+
+
+Started GET "/assets/sandwich_views.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:51:22 +0200
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-05-03 15:51:22 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-05-03 15:51:22 +0200
+
+
+Started GET "/sandwiches" for ::1 at 2016-05-03 15:51:22 +0200
+Processing by SandwichViewsController#index as HTML
+  [1m[36mSandwich Load (0.7ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" LIMIT 100[0m
+  Rendered sandwich_views/index.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 34ms (Views: 32.7ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/sandwiches" for ::1 at 2016-05-03 15:51:22 +0200
+Processing by SandwichViewsController#index as HTML
+  [1m[35mSandwich Load (0.5ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" LIMIT 100
+  Rendered sandwich_views/index.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 25ms (Views: 24.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/sandwiches" for ::1 at 2016-05-03 15:51:22 +0200
+Processing by SandwichViewsController#index as HTML
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" LIMIT 100[0m
+  Rendered sandwich_views/index.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 31ms (Views: 31.1ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/sandwiches" for ::1 at 2016-05-03 15:51:22 +0200
+Processing by SandwichViewsController#index as HTML
+  [1m[35mSandwich Load (0.1ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" LIMIT 100
+  Rendered sandwich_views/index.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 20ms (Views: 19.5ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-05-03 15:51:23 +0200
+
+
+Started GET "/sandwiches" for ::1 at 2016-05-03 15:58:23 +0200
+Processing by SandwichViewsController#index as HTML
+  [1m[36mSandwich Load (0.3ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" LIMIT 100[0m
+  Rendered sandwich_views/index.html.erb within layouts/application (3.8ms)
+Completed 200 OK in 30ms (Views: 27.2ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:58:23 +0200
+
+
+Started GET "/assets/sandwich_views.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:58:23 +0200
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-05-03 15:58:23 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:58:23 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 15:58:23 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2016-05-03 15:58:23 +0200
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-05-03 15:58:23 +0200
+
+
+Started GET "/assets/ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:58:23 +0200
+
+
+Started GET "/assets/sandwich_views.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:58:23 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 15:58:23 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-05-03 15:58:23 +0200
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-05-03 15:58:23 +0200
+
+
+Started GET "/sandwiches/" for ::1 at 2016-05-03 15:58:36 +0200
+Processing by SandwichViewsController#index as HTML
+  [1m[35mSandwich Load (0.1ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" LIMIT 100
+  Rendered sandwich_views/index.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 30ms (Views: 29.7ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/sandwiches/" for ::1 at 2016-05-03 15:58:37 +0200
+Processing by SandwichViewsController#index as HTML
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" LIMIT 100[0m
+  Rendered sandwich_views/index.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 22ms (Views: 21.8ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/sandwiches/" for ::1 at 2016-05-03 16:00:13 +0200
+Processing by SandwichViewsController#index as HTML
+  [1m[35mSandwich Load (0.1ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" LIMIT 100
+  Rendered sandwich_views/index.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 26ms (Views: 25.7ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/assets/ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:00:14 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:00:14 +0200
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-05-03 16:00:14 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2016-05-03 16:00:14 +0200
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-05-03 16:00:14 +0200
+
+
+Started GET "/assets/sandwich_views.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:00:14 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:00:14 +0200
+
+
+Started GET "/assets/ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:00:14 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:00:14 +0200
+
+
+Started GET "/assets/sandwich_views.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:00:14 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-05-03 16:00:14 +0200
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-05-03 16:00:14 +0200
+
+
+Started GET "/sandwiches/1" for ::1 at 2016-05-03 16:00:47 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mSandwich Load (0.2ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 1]]
+  Rendered sandwich_views/show.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 29ms (Views: 21.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/sandwiches/4" for ::1 at 2016-05-03 16:00:51 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mSandwich Load (0.1ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1  [["id", 4]]
+  Rendered sandwich_views/show.html.erb within layouts/application (0.0ms)
+Completed 200 OK in 20ms (Views: 19.4ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/sandwiches/" for ::1 at 2016-05-03 16:02:40 +0200
+Processing by SandwichViewsController#index as HTML
+  [1m[36mSandwich Load (0.2ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" LIMIT 100[0m
+  Rendered sandwich_views/index.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 27ms (Views: 26.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:02:40 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:02:40 +0200
+
+
+Started GET "/assets/sandwich_views.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:02:40 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2016-05-03 16:02:40 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:02:40 +0200
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-05-03 16:02:40 +0200
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-05-03 16:02:40 +0200
+
+
+Started GET "/assets/ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:02:40 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:02:40 +0200
+
+
+Started GET "/assets/sandwich_views.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:02:40 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-05-03 16:02:40 +0200
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-05-03 16:02:40 +0200
+
+
+Started GET "/sandwiches/1" for ::1 at 2016-05-03 16:02:42 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mSandwich Load (0.1ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1  [["id", 1]]
+  Rendered sandwich_views/show.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 21ms (Views: 20.3ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/sandwiches/2" for ::1 at 2016-05-03 16:02:47 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 2]]
+  Rendered sandwich_views/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 21ms (Views: 20.2ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/sandwiches/3" for ::1 at 2016-05-03 16:02:50 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[35mSandwich Load (0.1ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1  [["id", 3]]
+  Rendered sandwich_views/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 26ms (Views: 25.1ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/sandwiches/4" for ::1 at 2016-05-03 16:02:54 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 4]]
+  Rendered sandwich_views/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 20ms (Views: 19.7ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/sandwiches/5" for ::1 at 2016-05-03 16:02:57 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[35mSandwich Load (0.1ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1  [["id", 5]]
+  Rendered sandwich_views/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 21ms (Views: 20.5ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/sandwiches/" for ::1 at 2016-05-03 16:04:20 +0200
+Processing by SandwichViewsController#index as HTML
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" LIMIT 100[0m
+  Rendered sandwich_views/index.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 28ms (Views: 27.3ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/assets/sandwich_ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:04:20 +0200
+
+
+Started GET "/assets/sandwich_views.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:04:20 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:04:20 +0200
+
+
+Started GET "/assets/ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:04:20 +0200
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-05-03 16:04:20 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2016-05-03 16:04:20 +0200
+
+
+Started GET "/assets/ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:04:20 +0200
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-05-03 16:04:20 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:04:20 +0200
+
+
+Started GET "/assets/sandwich_views.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:04:20 +0200
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-05-03 16:04:20 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-05-03 16:04:20 +0200
+
+
+Started GET "/sandwiches/1" for ::1 at 2016-05-03 16:04:21 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mSandwich Load (0.1ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1  [["id", 1]]
+  Rendered sandwich_views/show.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 22ms (Views: 20.9ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/sandwiches/1" for ::1 at 2016-05-03 16:05:39 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 1]]
+  Rendered sandwich_views/show.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 20ms (Views: 19.4ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/assets/sandwich_ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:05:39 +0200
+
+
+Started GET "/assets/sandwich_views.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:05:39 +0200
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-05-03 16:05:39 +0200
+
+
+Started GET "/assets/ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:05:39 +0200
+
+
+Started GET "/assets/ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:05:39 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:05:39 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2016-05-03 16:05:39 +0200
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-05-03 16:05:39 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:05:39 +0200
+
+
+Started GET "/assets/sandwich_views.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:05:39 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-05-03 16:05:39 +0200
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-05-03 16:05:39 +0200
+
+
+Started GET "/sandwiches/1" for ::1 at 2016-05-03 16:06:07 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mSandwich Load (0.1ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1  [["id", 1]]
+  Rendered sandwich_views/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 28ms (Views: 27.2ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/assets/ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:06:07 +0200
+
+
+Started GET "/assets/sandwich_views.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:06:07 +0200
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-05-03 16:06:07 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:06:07 +0200
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-05-03 16:06:07 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:06:07 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2016-05-03 16:06:07 +0200
+
+
+Started GET "/assets/ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:06:07 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:06:07 +0200
+
+
+Started GET "/assets/sandwich_views.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:06:07 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-05-03 16:06:07 +0200
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-05-03 16:06:07 +0200
+  [1m[36m (1.6ms)[0m  [1mCREATE TABLE "ingredients" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "calories" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.8ms)[0m  CREATE TABLE "sandwich_ingredients" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "sandwich_id" integer, "ingredient_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.8ms)[0m  [1mCREATE TABLE "sandwiches" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "bread_type" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (1.1ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.9ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (0.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160502132037')
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160208151610')[0m
+  [1m[35m (1.0ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160208160157')
+  [1m[36m (0.8ms)[0m  [1mDROP TABLE "ingredients"[0m
+  [1m[35m (0.9ms)[0m  CREATE TABLE "ingredients" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "calories" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.8ms)[0m  [1mDROP TABLE "sandwich_ingredients"[0m
+  [1m[35m (0.8ms)[0m  CREATE TABLE "sandwich_ingredients" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "sandwich_id" integer, "ingredient_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.7ms)[0m  [1mDROP TABLE "sandwiches"[0m
+  [1m[35m (0.8ms)[0m  CREATE TABLE "sandwiches" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "bread_type" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Falafel"], ["bread_type", "Pita"], ["created_at", "2016-05-03 14:17:50.204514"], ["updated_at", "2016-05-03 14:17:50.204514"]]
+  [1m[36m (0.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Choky"], ["bread_type", "Integral"], ["created_at", "2016-05-03 14:17:50.212179"], ["updated_at", "2016-05-03 14:17:50.212179"]]
+  [1m[35m (0.7ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Jelly Jelly"], ["bread_type", "White"], ["created_at", "2016-05-03 14:17:50.214363"], ["updated_at", "2016-05-03 14:17:50.214363"]]
+  [1m[36m (0.6ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Wacky & Spicy"], ["bread_type", "Cereal"], ["created_at", "2016-05-03 14:17:50.216173"], ["updated_at", "2016-05-03 14:17:50.216173"]]
+  [1m[35m (0.6ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Meat Lover"], ["bread_type", "Mixed Meat"], ["created_at", "2016-05-03 14:17:50.218203"], ["updated_at", "2016-05-03 14:17:50.218203"]]
+  [1m[36m (0.9ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "ingredients" ("name", "calories", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Mierda"], ["calories", 500], ["created_at", "2016-05-03 14:17:50.231083"], ["updated_at", "2016-05-03 14:17:50.231083"]]
+  [1m[35m (0.6ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "ingredients" ("name", "calories", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Nutella"], ["calories", 900], ["created_at", "2016-05-03 14:17:50.233261"], ["updated_at", "2016-05-03 14:17:50.233261"]]
+  [1m[36m (0.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mSandwich Load (0.2ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mIngredient Load (0.1ms)[0m  [1mSELECT  "ingredients".* FROM "ingredients"  ORDER BY "ingredients"."id" ASC LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "sandwich_ingredients" ("sandwich_id", "ingredient_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["sandwich_id", 1], ["ingredient_id", 1], ["created_at", "2016-05-03 14:17:50.270444"], ["updated_at", "2016-05-03 14:17:50.270444"]]
+  [1m[35m (0.8ms)[0m  commit transaction
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mIngredient Load (0.1ms)[0m  SELECT  "ingredients".* FROM "ingredients"  ORDER BY "ingredients"."id" ASC LIMIT 1 OFFSET 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "sandwich_ingredients" ("sandwich_id", "ingredient_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["sandwich_id", 1], ["ingredient_id", 2], ["created_at", "2016-05-03 14:17:50.275601"], ["updated_at", "2016-05-03 14:17:50.275601"]]
+  [1m[36m (0.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mSandwich Load (0.1ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mIngredient Load (0.1ms)[0m  [1mSELECT  "ingredients".* FROM "ingredients"  ORDER BY "ingredients"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "sandwich_ingredients" ("sandwich_id", "ingredient_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["sandwich_id", 1], ["ingredient_id", 1], ["created_at", "2016-05-03 14:17:50.279104"], ["updated_at", "2016-05-03 14:17:50.279104"]]
+  [1m[35m (0.7ms)[0m  commit transaction
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mIngredient Load (0.1ms)[0m  SELECT  "ingredients".* FROM "ingredients"  ORDER BY "ingredients"."id" ASC LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "sandwich_ingredients" ("sandwich_id", "ingredient_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["sandwich_id", 1], ["ingredient_id", 1], ["created_at", "2016-05-03 14:17:50.282856"], ["updated_at", "2016-05-03 14:17:50.282856"]]
+  [1m[36m (0.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mSandwich Load (0.1ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mIngredient Load (0.1ms)[0m  [1mSELECT  "ingredients".* FROM "ingredients"  ORDER BY "ingredients"."id" ASC LIMIT 1 OFFSET 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "sandwich_ingredients" ("sandwich_id", "ingredient_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["sandwich_id", 1], ["ingredient_id", 2], ["created_at", "2016-05-03 14:17:50.286250"], ["updated_at", "2016-05-03 14:17:50.286250"]]
+  [1m[35m (0.6ms)[0m  commit transaction
+  [1m[36m (1.0ms)[0m  [1mCREATE TABLE "ingredients" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "calories" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.8ms)[0m  CREATE TABLE "sandwich_ingredients" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "sandwich_id" integer, "ingredient_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.8ms)[0m  [1mCREATE TABLE "sandwiches" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "bread_type" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (1.6ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (1.3ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (0.9ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160502132037')
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160208151610')[0m
+  [1m[35m (0.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160208160157')
+  [1m[36m (1.4ms)[0m  [1mDROP TABLE "ingredients"[0m
+  [1m[35m (0.9ms)[0m  CREATE TABLE "ingredients" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "calories" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.7ms)[0m  [1mDROP TABLE "sandwich_ingredients"[0m
+  [1m[35m (2.2ms)[0m  CREATE TABLE "sandwich_ingredients" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "sandwich_id" integer, "ingredient_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (1.3ms)[0m  [1mDROP TABLE "sandwiches"[0m
+  [1m[35m (2.0ms)[0m  CREATE TABLE "sandwiches" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "bread_type" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Falafel"], ["bread_type", "Pita"], ["created_at", "2016-05-03 14:18:42.935786"], ["updated_at", "2016-05-03 14:18:42.935786"]]
+  [1m[36m (0.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Choky"], ["bread_type", "Integral"], ["created_at", "2016-05-03 14:18:42.940804"], ["updated_at", "2016-05-03 14:18:42.940804"]]
+  [1m[35m (0.8ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Jelly Jelly"], ["bread_type", "White"], ["created_at", "2016-05-03 14:18:42.944510"], ["updated_at", "2016-05-03 14:18:42.944510"]]
+  [1m[36m (0.6ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Wacky & Spicy"], ["bread_type", "Cereal"], ["created_at", "2016-05-03 14:18:42.946439"], ["updated_at", "2016-05-03 14:18:42.946439"]]
+  [1m[35m (0.6ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "sandwiches" ("name", "bread_type", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Meat Lover"], ["bread_type", "Mixed Meat"], ["created_at", "2016-05-03 14:18:42.948248"], ["updated_at", "2016-05-03 14:18:42.948248"]]
+  [1m[36m (1.0ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "ingredients" ("name", "calories", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Mierda"], ["calories", 500], ["created_at", "2016-05-03 14:18:42.956867"], ["updated_at", "2016-05-03 14:18:42.956867"]]
+  [1m[35m (0.7ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "ingredients" ("name", "calories", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Nutella"], ["calories", 900], ["created_at", "2016-05-03 14:18:42.958992"], ["updated_at", "2016-05-03 14:18:42.958992"]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+  [1m[35mSandwich Load (0.2ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mIngredient Load (0.1ms)[0m  [1mSELECT  "ingredients".* FROM "ingredients"  ORDER BY "ingredients"."id" ASC LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "sandwich_ingredients" ("sandwich_id", "ingredient_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["sandwich_id", 1], ["ingredient_id", 1], ["created_at", "2016-05-03 14:18:42.998196"], ["updated_at", "2016-05-03 14:18:42.998196"]]
+  [1m[35m (0.6ms)[0m  commit transaction
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mIngredient Load (0.2ms)[0m  SELECT  "ingredients".* FROM "ingredients"  ORDER BY "ingredients"."id" ASC LIMIT 1 OFFSET 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "sandwich_ingredients" ("sandwich_id", "ingredient_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["sandwich_id", 2], ["ingredient_id", 2], ["created_at", "2016-05-03 14:18:43.003032"], ["updated_at", "2016-05-03 14:18:43.003032"]]
+  [1m[36m (0.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mSandwich Load (0.1ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36mIngredient Load (0.1ms)[0m  [1mSELECT  "ingredients".* FROM "ingredients"  ORDER BY "ingredients"."id" ASC LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "sandwich_ingredients" ("sandwich_id", "ingredient_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["sandwich_id", 3], ["ingredient_id", 1], ["created_at", "2016-05-03 14:18:43.006409"], ["updated_at", "2016-05-03 14:18:43.006409"]]
+  [1m[35m (0.7ms)[0m  commit transaction
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35mIngredient Load (0.1ms)[0m  SELECT  "ingredients".* FROM "ingredients"  ORDER BY "ingredients"."id" ASC LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "sandwich_ingredients" ("sandwich_id", "ingredient_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["sandwich_id", 4], ["ingredient_id", 1], ["created_at", "2016-05-03 14:18:43.010672"], ["updated_at", "2016-05-03 14:18:43.010672"]]
+  [1m[36m (0.7ms)[0m  [1mcommit transaction[0m
+  [1m[35mSandwich Load (0.1ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mIngredient Load (0.1ms)[0m  [1mSELECT  "ingredients".* FROM "ingredients"  ORDER BY "ingredients"."id" ASC LIMIT 1 OFFSET 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "sandwich_ingredients" ("sandwich_id", "ingredient_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["sandwich_id", 5], ["ingredient_id", 2], ["created_at", "2016-05-03 14:18:43.014525"], ["updated_at", "2016-05-03 14:18:43.014525"]]
+  [1m[35m (0.6ms)[0m  commit transaction
+
+
+Started GET "/sandwiches/1" for ::1 at 2016-05-03 16:20:28 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mSandwich Load (0.4ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mIngredient Load (0.2ms)[0m  [1mSELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?[0m  [["sandwich_id", 1]]
+  [1m[35mSandwich Load (0.2ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mIngredient Load (0.1ms)[0m  [1mSELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?[0m  [["sandwich_id", 2]]
+  Rendered sandwich_views/show.html.erb within layouts/application (10.8ms)
+Completed 500 Internal Server Error in 394841ms (ActiveRecord: 1.7ms)
+
+ActionView::Template::Error (undefined method `calories' for #<Ingredient::ActiveRecord_Associations_CollectionProxy:0x007fa5af445c80>):
+     6: 
+     7: <ul>
+     8: 	<li>Name: <%= @ingredients.name %></li>
+     9: 	<li>Calories: <%= @ingredients.calories %></li>
+    10: </ul>
+  app/views/sandwich_views/show.html.erb:9:in `_app_views_sandwich_views_show_html_erb__3819594943412537964_70174793539140'
+
+
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.6ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.3ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (15.1ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (69.4ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.5ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (49.4ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.5ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (115.7ms)
+
+
+Started GET "/sandwiches/3" for ::1 at 2016-05-03 16:27:03 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[35mSandwich Load (0.1ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36mIngredient Load (0.1ms)[0m  [1mSELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?[0m  [["sandwich_id", 3]]
+  Rendered sandwich_views/show.html.erb within layouts/application (6.3ms)
+Completed 500 Internal Server Error in 2152ms (ActiveRecord: 0.2ms)
+
+ActionView::Template::Error (undefined method `calories' for #<Ingredient::ActiveRecord_Associations_CollectionProxy:0x007fa5ab75e178>):
+     6: 
+     7: <ul>
+     8: 	<li>Name: <%= @ingredients.name %></li>
+     9: 	<li>Calories: <%= @ingredients.calories %></li>
+    10: </ul>
+  app/views/sandwich_views/show.html.erb:9:in `_app_views_sandwich_views_show_html_erb__3819594943412537964_70174793539140'
+
+
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.6ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.4ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.2ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (53.4ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (42.6ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (89.1ms)
+
+
+Started GET "/sandwiches/" for ::1 at 2016-05-03 16:27:06 +0200
+Processing by SandwichViewsController#index as HTML
+  [1m[35mSandwich Load (0.1ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" LIMIT 100
+  Rendered sandwich_views/index.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 272ms (Views: 271.3ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/sandwiches/1" for ::1 at 2016-05-03 16:27:06 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mIngredient Load (0.1ms)[0m  SELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?  [["sandwich_id", 1]]
+  Rendered sandwich_views/show.html.erb within layouts/application (15.6ms)
+Completed 500 Internal Server Error in 35130ms (ActiveRecord: 0.2ms)
+
+ActionView::Template::Error (undefined method `calories' for #<Ingredient::ActiveRecord_Associations_CollectionProxy:0x007fa5b1dd7ad0>):
+     6: 
+     7: <ul>
+     8: 	<li>Name: <%= @ingredients.name %></li>
+     9: 	<li>Calories: <%= @ingredients.calories %></li>
+    10: </ul>
+  app/views/sandwich_views/show.html.erb:9:in `_app_views_sandwich_views_show_html_erb__3819594943412537964_70174793539140'
+
+
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.6ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.9ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (46.7ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.6ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (44.0ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.6ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (102.0ms)
+
+
+Started GET "/sandwiches/" for ::1 at 2016-05-03 16:29:03 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by SandwichViewsController#index as HTML
+  [1m[35mSandwich Load (0.2ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" LIMIT 100
+  Rendered sandwich_views/index.html.erb within layouts/application (8.4ms)
+Completed 200 OK in 266ms (Views: 259.5ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/sandwiches/1" for ::1 at 2016-05-03 16:29:05 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mSandwich Load (0.3ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mIngredient Load (0.2ms)[0m  SELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?  [["sandwich_id", 1]]
+  Rendered sandwich_views/show.html.erb within layouts/application (28.7ms)
+Completed 500 Internal Server Error in 3633ms (ActiveRecord: 0.9ms)
+
+ActionView::Template::Error (undefined method `calories' for #<Ingredient::ActiveRecord_Associations_CollectionProxy:0x007fe2101f39a8>):
+     6: 
+     7: <ul>
+     8: 	<li>Name: <%= @ingredients.name %></li>
+     9: 	<li>Calories: <%= @ingredients.calories %></li>
+    10: </ul>
+  app/views/sandwich_views/show.html.erb:9:in `_app_views_sandwich_views_show_html_erb__1513448126830418368_70304455570520'
+
+
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.1ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.0ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.4ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (51.6ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.6ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (52.3ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.4ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (110.0ms)
+
+
+Started GET "/sandwiches/4" for ::1 at 2016-05-03 16:29:58 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35mIngredient Load (0.2ms)[0m  SELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?  [["sandwich_id", 4]]
+  Rendered sandwich_views/show.html.erb within layouts/application (7.4ms)
+Completed 500 Internal Server Error in 207275ms (ActiveRecord: 0.3ms)
+
+ActionView::Template::Error (undefined method `calories' for #<Ingredient::ActiveRecord_Associations_CollectionProxy:0x007fe2122a30e0>):
+     6: 
+     7: <ul>
+     8: 	<li>Name: <%= @ingredients.name %></li>
+     9: 	<li>Calories: <%= @ingredients.calories %></li>
+    10: </ul>
+  app/views/sandwich_views/show.html.erb:9:in `_app_views_sandwich_views_show_html_erb__1513448126830418368_70304455570520'
+
+
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.9ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.7ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.2ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (48.7ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.7ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.5ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (46.7ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
+  Rendered /Users/felicity/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (104.1ms)
+
+
+Started GET "/sandwiches/1" for ::1 at 2016-05-03 16:33:30 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mSandwich Load (0.2ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mIngredient Load (0.1ms)[0m  SELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?  [["sandwich_id", 1]]
+  Rendered sandwich_views/show.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 40291ms (Views: 34.0ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/sandwiches/1" for ::1 at 2016-05-03 16:34:34 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mSandwich Load (0.3ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mIngredient Load (0.1ms)[0m  SELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?  [["sandwich_id", 1]]
+  Rendered sandwich_views/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 61ms (Views: 30.8ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/assets/sandwich_views.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:34:35 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:34:35 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:34:35 +0200
+
+
+Started GET "/assets/ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:34:35 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2016-05-03 16:34:35 +0200
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-05-03 16:34:35 +0200
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-05-03 16:34:35 +0200
+
+
+Started GET "/assets/ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:34:35 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:34:35 +0200
+
+
+Started GET "/assets/sandwich_views.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:34:35 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-05-03 16:34:35 +0200
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-05-03 16:34:35 +0200
+
+
+Started GET "/sandwiches/5" for ::1 at 2016-05-03 16:34:37 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mIngredient Load (0.1ms)[0m  SELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?  [["sandwich_id", 5]]
+  Rendered sandwich_views/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 26ms (Views: 23.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/sandwiches/4" for ::1 at 2016-05-03 16:34:39 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35mIngredient Load (0.1ms)[0m  SELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?  [["sandwich_id", 4]]
+  Rendered sandwich_views/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 20ms (Views: 18.6ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/sandwiches/3" for ::1 at 2016-05-03 16:34:41 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35mIngredient Load (0.1ms)[0m  SELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?  [["sandwich_id", 3]]
+  Rendered sandwich_views/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 24ms (Views: 22.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/sandwiches/2" for ::1 at 2016-05-03 16:34:42 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mIngredient Load (0.1ms)[0m  SELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?  [["sandwich_id", 2]]
+  Rendered sandwich_views/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 23ms (Views: 21.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/sandwiches/1" for ::1 at 2016-05-03 16:34:44 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mIngredient Load (0.1ms)[0m  SELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?  [["sandwich_id", 1]]
+  Rendered sandwich_views/show.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 34ms (Views: 30.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/sandwiches/1" for ::1 at 2016-05-03 16:34:46 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mIngredient Load (0.1ms)[0m  SELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?  [["sandwich_id", 1]]
+  Rendered sandwich_views/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 20ms (Views: 17.9ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/sandwiches/1" for ::1 at 2016-05-03 16:38:37 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mIngredient Load (0.3ms)[0m  SELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?  [["sandwich_id", 1]]
+  Rendered sandwich_views/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 29ms (Views: 25.9ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:38:37 +0200
+
+
+Started GET "/assets/sandwich_views.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:38:37 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2016-05-03 16:38:37 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:38:38 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:38:38 +0200
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-05-03 16:38:38 +0200
+
+
+Started GET "/assets/ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:38:38 +0200
+
+
+Started GET "/assets/sandwich_views.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:38:38 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:38:38 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-05-03 16:38:38 +0200
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-05-03 16:38:38 +0200
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-05-03 16:38:38 +0200
+
+
+Started GET "/sandwiches/1" for ::1 at 2016-05-03 16:38:49 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mSandwich Load (0.1ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mIngredient Load (0.1ms)[0m  SELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?  [["sandwich_id", 1]]
+  Rendered sandwich_views/show.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 23ms (Views: 21.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/sandwich_ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:38:49 +0200
+
+
+Started GET "/assets/sandwich_views.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:38:49 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:38:49 +0200
+
+
+Started GET "/assets/ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:38:49 +0200
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-05-03 16:38:49 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2016-05-03 16:38:49 +0200
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-05-03 16:38:49 +0200
+
+
+Started GET "/assets/ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:38:49 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:38:49 +0200
+
+
+Started GET "/assets/sandwich_views.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:38:49 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-05-03 16:38:49 +0200
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-05-03 16:38:49 +0200
