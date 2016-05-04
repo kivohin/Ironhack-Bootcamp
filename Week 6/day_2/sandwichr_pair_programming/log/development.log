@@ -1451,3 +1451,56 @@ Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649
 
 
 Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-05-03 16:38:49 +0200
+
+
+Started GET "/sandwiches/" for ::1 at 2016-05-03 16:59:06 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by SandwichViewsController#index as HTML
+  [1m[35mSandwich Load (0.2ms)[0m  SELECT  "sandwiches".* FROM "sandwiches" LIMIT 100
+  Rendered sandwich_views/index.html.erb within layouts/application (8.3ms)
+Completed 200 OK in 286ms (Views: 278.3ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/assets/ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:59:07 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:59:07 +0200
+
+
+Started GET "/assets/sandwich_views.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:59:07 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2016-05-03 16:59:07 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-05-03 16:59:07 +0200
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-05-03 16:59:07 +0200
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-05-03 16:59:07 +0200
+
+
+Started GET "/assets/ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:59:07 +0200
+
+
+Started GET "/assets/sandwich_ingredients.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:59:07 +0200
+
+
+Started GET "/assets/sandwich_views.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-05-03 16:59:07 +0200
+
+
+Started GET "/assets/sandwiches.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-05-03 16:59:07 +0200
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-05-03 16:59:07 +0200
+
+
+Started GET "/sandwiches/2" for ::1 at 2016-05-03 16:59:07 +0200
+Processing by SandwichViewsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mSandwich Load (0.2ms)[0m  [1mSELECT  "sandwiches".* FROM "sandwiches" WHERE "sandwiches"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mIngredient Load (0.4ms)[0m  SELECT "ingredients".* FROM "ingredients" INNER JOIN "sandwich_ingredients" ON "ingredients"."id" = "sandwich_ingredients"."ingredient_id" WHERE "sandwich_ingredients"."sandwich_id" = ?  [["sandwich_id", 2]]
+  Rendered sandwich_views/show.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 133ms (Views: 46.6ms | ActiveRecord: 1.3ms)
